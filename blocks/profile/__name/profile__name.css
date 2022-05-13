@@ -1,0 +1,6 @@
+.profile__name {
+  display: flex;
+  align-items: baseline;
+  justify-content: left;
+  position: relative;
+}
