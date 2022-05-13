@@ -9,6 +9,12 @@
   position: absolute;
   right: -36px;
   top: 16px;
+  transition: opacity 0.25s linear;
+}
+
+.profile__edit-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 1050px) {
