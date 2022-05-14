@@ -1,4 +1,4 @@
-.element__like-button {
+.elements__item-like-button {
   padding: 0;
   border: none;
   background-color: transparent;
@@ -8,7 +8,7 @@
   transition: opacity 0.25s linear;
 }
 
-.element__like-button:hover {
+.elements__item-like-button:hover {
   cursor: pointer;
   opacity: 0.5;
 }
