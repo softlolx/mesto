@@ -4,6 +4,8 @@
 
 ### Страница на GH Pages
 
+https://softlolx.github.io/mesto/index.html
+
 #
 
 #
