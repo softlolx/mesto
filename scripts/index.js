@@ -1,4 +1,4 @@
-let popup = document.querySelector(".popup");
+let profileEditPopup = document.querySelector(".popup_content_profile");
 let profileEditForm = document.querySelector(".popup__form");
 let profileName = document.querySelector(".profile__name");
 let profileDescription = document.querySelector(".profile__description");
@@ -8,14 +8,14 @@ let nameInput = document.querySelector(".popup__input_type_name");
 let descriptionInput = document.querySelector(".popup__input_type_description");
 
 function openPopup() {
-  popup.classList.add("popup_opened");
+  profileEditPopup.classList.add("popup_opened");
   profileEditForm.reset();
   nameInput.setAttribute("value", profileName.innerText);
   descriptionInput.setAttribute("value", profileDescription.innerText);
 }
 
 function closePopup() {
-  popup.classList.remove("popup_opened");
+  profileEditPopup.classList.remove("popup_opened");
 }
 
 function formSubmitHandler(evt) {
