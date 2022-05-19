@@ -27,5 +27,4 @@ function formSubmitHandler(evt) {
 
 editProfileButton.addEventListener("click", openPopup);
 closePopupButton.addEventListener("click", closePopup);
-closePopupButton.addEventListener("keydown", closePopup);
 profileEditForm.addEventListener("submit", formSubmitHandler);
