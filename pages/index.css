@@ -34,3 +34,17 @@
 @import url(../blocks/elements/__item-title/elements__item-title.css);
 @import url(../blocks/elements/__item-like-button/elements__item-like-button.css);
 @import url(../blocks/elements/__item-like-button/_active/elements__item-like-button_active.css);
+@import url(../blocks/elements/__item-delete-button/elements__item-delete-button.css);
+@import url(../blocks/popup/_content/popup_content_add-item.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_item-link.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_item-name.css);
+@import url(../blocks/popup/__form/_content/popup__form_content_add-item.css);
+@import url(../blocks/popup/__form/_content/popup__form_content_profile.css);
+@import url(..);
+@import url(..);
+@import url(..);
+@import url(..);
+@import url(..);
+@import url(..);
+@import url(..);
+@import url(..);
