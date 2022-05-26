@@ -38,9 +38,7 @@ const addItemButton = document.querySelector(".profile__add-button");
 const closePopupButton = document.querySelectorAll(".popup__close-button");
 const itemImagePopup = document.querySelector(".popup_content_image");
 const nameInput = document.querySelector(".popup__input_type_name");
-const descriptionInput = document.querySelector(
-  ".popup__input_type_description"
-);
+const descriptionInput = document.querySelector(".popup__input_type_description");
 const itemsContainer = document.querySelector(".elements__grid");
 
 initialCards.forEach((item) => createItems(item));
@@ -53,7 +51,6 @@ function createItems(item) {
   itemElement.querySelector(".elements__item-img").alt = item.name;
   itemElement.querySelector(".elements__item-title").textContent = item.name;
   itemsContainer.prepend(itemElement);
-
   addCardListeners();
 }
 
@@ -74,8 +71,7 @@ function itemAddSubmitHandler(evt) {
     .cloneNode(true);
   itemElement.querySelector(".elements__item-img").src = itemAddLinkInput.value;
   itemElement.querySelector(".elements__item-img").alt = itemAddNameInput.value;
-  itemElement.querySelector(".elements__item-title").textContent =
-    itemAddNameInput.value;
+  itemElement.querySelector(".elements__item-title").textContent = itemAddNameInput.value;
   itemsContainer.prepend(itemElement);
   itemAddForm.reset();
   addCardListeners();
@@ -109,18 +105,12 @@ function deleteItem(evt) {
 }
 
 function addCardListeners() {
-  const itemLikeButton = document.querySelectorAll(
-    ".elements__item-like-button"
-  );
-  itemLikeButton.forEach((element) =>
-    element.addEventListener("click", likeItem)
-  );
-  const itemDeleteButton = document.querySelectorAll(
-    ".elements__item-delete-button"
-  );
-  itemDeleteButton.forEach((element) =>
-    element.addEventListener("click", deleteItem)
-  );
+  const itemLikeButton = document.querySelectorAll(".elements__item-like-button");
+  itemLikeButton.forEach((element) => element.addEventListener("click", likeItem));
+
+  const itemDeleteButton = document.querySelectorAll(".elements__item-delete-button");
+  itemDeleteButton.forEach((element) => element.addEventListener("click", deleteItem));
+
   const itemImage = document.querySelectorAll(".elements__item-img");
   itemImage.forEach((element) =>
     element.addEventListener("click", () => {
@@ -134,9 +124,7 @@ editProfileButton.addEventListener("click", () => {
   openPopup(profileEditPopup);
   setInputValues();
 });
-addItemButton.addEventListener("click", () => {
-  openPopup(itemAddPopup);
-});
+addItemButton.addEventListener("click", () => {openPopup(itemAddPopup);});
 closePopupButton.forEach((item) => item.addEventListener("click", closePopup));
 profileEditForm.addEventListener("submit", profileEditSubmitHandler);
 
