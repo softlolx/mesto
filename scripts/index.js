@@ -41,18 +41,19 @@ const nameInput = document.querySelector(".popup__input_type_name");
 const descriptionInput = document.querySelector(".popup__input_type_description");
 const itemsContainer = document.querySelector(".elements__grid");
 
-initialCards.forEach((item) => createItems(item));
 function createItems(item) {
   const itemTemplate = document.querySelector("#elements__item").content;
   const itemElement = itemTemplate
-    .querySelector(".elements__item")
-    .cloneNode(true);
+  .querySelector(".elements__item")
+  .cloneNode(true);
   itemElement.querySelector(".elements__item-img").src = item.link;
   itemElement.querySelector(".elements__item-img").alt = item.name;
   itemElement.querySelector(".elements__item-title").textContent = item.name;
   itemsContainer.prepend(itemElement);
   addCardListeners();
 }
+
+initialCards.forEach((item) => createItems(item));
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
