@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 const profileEditPopup = document.querySelector(".popup_content_profile");
 const itemAddPopup = document.querySelector(".popup_content_add-item");
 const profileEditForm = document.querySelector(".popup__form_content_profile");
@@ -37,64 +10,71 @@ const editProfileButton = document.querySelector(".profile__edit-button");
 const addItemButton = document.querySelector(".profile__add-button");
 const closePopupButton = document.querySelectorAll(".popup__close-button");
 const itemImagePopup = document.querySelector(".popup_content_image");
+const itemBigImage = itemImagePopup.querySelector(".popup__image");
+const itemBigImageDescription = itemImagePopup.querySelector(".popup__image-caption");
 const nameInput = document.querySelector(".popup__input_type_name");
 const descriptionInput = document.querySelector(".popup__input_type_description");
 const itemsContainer = document.querySelector(".elements__grid");
-
-function createItems(item) {
-  const itemTemplate = document.querySelector("#elements__item").content;
-  const itemElement = itemTemplate
-  .querySelector(".elements__item")
-  .cloneNode(true);
-  itemElement.querySelector(".elements__item-img").src = item.link;
-  itemElement.querySelector(".elements__item-img").alt = item.name;
-  itemElement.querySelector(".elements__item-title").textContent = item.name;
-  itemsContainer.prepend(itemElement);
-  addCardListeners();
-}
-
-initialCards.forEach((item) => createItems(item));
+const itemTemplate = document.querySelector("#elements__item").content;
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
 
-function itemImagePopupHandler(evt) {
-  document.querySelector(".popup__image").src = evt.src;
-  document.querySelector(".popup__image-caption").textContent = evt.alt;
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
 }
+
+function createItem(item) {
+  const itemElement = itemTemplate
+  .querySelector(".elements__item")
+  .cloneNode(true);
+
+  itemElement.querySelector(".elements__item-img").src = item.link;
+  itemElement.querySelector(".elements__item-img").alt = item.name;
+  itemElement.querySelector(".elements__item-title").textContent = item.name;
+
+  itemElement.querySelector(".elements__item-like-button").addEventListener("click", likeItem);
+  itemElement.querySelector(".elements__item-delete-button").addEventListener("click", deleteItem);
+  itemElement.querySelector(".elements__item-img").addEventListener("click", () => {
+    openPopup(itemImagePopup);
+    itemBigImage.src = item.link;
+    itemBigImage.alt = `Фото ${item.name}.`;
+    itemBigImageDescription.textContent = item.name;   
+  });
+  
+  return itemElement;
+}
+
+function renderItem(item) {
+  const readyItem = createItem(item);
+  itemsContainer.prepend(readyItem);  
+}
+
+initialCards.forEach((item) => renderItem(item));
 
 function itemAddSubmitHandler(evt) {
   evt.preventDefault();
-  const itemTemplate = document.querySelector("#elements__item").content;
-  const itemElement = itemTemplate
-    .querySelector(".elements__item")
-    .cloneNode(true);
-  itemElement.querySelector(".elements__item-img").src = itemAddLinkInput.value;
-  itemElement.querySelector(".elements__item-img").alt = itemAddNameInput.value;
-  itemElement.querySelector(".elements__item-title").textContent = itemAddNameInput.value;
-  itemsContainer.prepend(itemElement);
+  const newItem = {
+    name: itemAddNameInput.value,
+    link: itemAddLinkInput.value,
+  }
+  renderItem(newItem);  
   itemAddForm.reset();
-  addCardListeners();
-
-  closePopup(evt);
-}
-
-function closePopup(evt) {
-  evt.target.closest(".popup").classList.remove("popup_opened");
-}
-
-function setInputValues() {
-  profileEditForm.reset();
-  nameInput.setAttribute("value", profileName.innerText);
-  descriptionInput.setAttribute("value", profileDescription.innerText);
+  closePopup(itemAddPopup);
 }
 
 function profileEditSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
-  closePopup(evt);
+  closePopup(profileEditPopup);
+}
+
+function setInputValues() {
+  profileEditForm.reset();
+  nameInput.setAttribute("value", profileName.textContent);
+  descriptionInput.setAttribute("value", profileDescription.textContent);
 }
 
 function likeItem(evt) {
@@ -105,28 +85,17 @@ function deleteItem(evt) {
   evt.target.closest(".elements__item").remove();
 }
 
-function addCardListeners() {
-  const itemLikeButton = document.querySelectorAll(".elements__item-like-button");
-  itemLikeButton.forEach((element) => element.addEventListener("click", likeItem));
-
-  const itemDeleteButton = document.querySelectorAll(".elements__item-delete-button");
-  itemDeleteButton.forEach((element) => element.addEventListener("click", deleteItem));
-
-  const itemImage = document.querySelectorAll(".elements__item-img");
-  itemImage.forEach((element) =>
-    element.addEventListener("click", () => {
-      openPopup(itemImagePopup);
-      itemImagePopupHandler(element);
-    })
-  );
-}
-
 editProfileButton.addEventListener("click", () => {
   openPopup(profileEditPopup);
   setInputValues();
 });
+
 addItemButton.addEventListener("click", () => {openPopup(itemAddPopup);});
-closePopupButton.forEach((item) => item.addEventListener("click", closePopup));
+
+closePopupButton.forEach((item) => item.addEventListener("click", () => {
+  const currentPopup = item.closest(".popup")
+  closePopup(currentPopup)}));
+
 profileEditForm.addEventListener("submit", profileEditSubmitHandler);
 
 itemAddForm.addEventListener("submit", itemAddSubmitHandler);
