@@ -1,9 +1,9 @@
-.elements__item-img {
+.elements__card-img {
   min-width: 282px;
   height: 282px;
   object-fit: cover;
 }
 
-.elements__item-img:hover {
+.elements__card-img:hover {
   cursor: pointer;
 }

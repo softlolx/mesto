@@ -1,4 +1,4 @@
-.elements__item-like-button {
+.elements__card-like-button {
   padding: 0;
   border: none;
   background-color: transparent;
@@ -8,7 +8,7 @@
   transition: opacity 0.25s linear;
 }
 
-.elements__item-like-button:hover {
+.elements__card-like-button:hover {
   cursor: pointer;
   opacity: 0.5;
 }
