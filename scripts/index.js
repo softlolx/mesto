@@ -21,8 +21,25 @@ const descriptionInput = document.querySelector(
 const cardsContainer = document.querySelector(".elements__grid");
 const cardTemplate = document.querySelector("#elements__card").content;
 
+function closePopupByOverlay(evt) {
+  if (evt.target == evt.currentTarget) {
+    closePopup(evt.target);
+    evt.target.removeEventListener("click", closePopupByOverlay);
+  }
+}
+
+function closePopupByEsc(evt) {
+  const currentPopup = document.querySelector(".popup_opened");
+  if (evt.key == "Escape") {
+    closePopup(currentPopup);
+    document.removeEventListener("keydown", closePopupByEsc);
+  }
+}
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  popup.addEventListener("click", closePopupByOverlay);
+  document.addEventListener("keydown", closePopupByEsc);
 }
 
 function closePopup(popup) {
