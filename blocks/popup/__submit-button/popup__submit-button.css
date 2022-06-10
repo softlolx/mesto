@@ -27,7 +27,7 @@
 
 .popup__submit-button:disabled:hover {
   opacity: 1;
-  cursor: auto;
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 550px) {

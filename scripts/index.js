@@ -25,7 +25,6 @@ const cardTemplate = document.querySelector("#elements__card").content;
 function closePopupByOverlay(evt) {
   if (evt.target == evt.currentTarget) {
     closePopup(evt.target);
-    evt.target.removeEventListener("click", closePopupByOverlay);
   }
 }
 
@@ -33,7 +32,6 @@ function closePopupByEsc(evt) {
   const currentPopup = document.querySelector(".popup_opened");
   if (evt.key == "Escape") {
     closePopup(currentPopup);
-    document.removeEventListener("keydown", closePopupByEsc);
   }
 }
 
@@ -45,6 +43,7 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupByEsc);
 }
 
 function createCard(item) {
@@ -52,8 +51,10 @@ function createCard(item) {
     .querySelector(".elements__card")
     .cloneNode(true);
 
-  cardElement.querySelector(".elements__card-img").src = item.link;
-  cardElement.querySelector(".elements__card-img").alt = item.name;
+  const cardImage = cardElement.querySelector(".elements__card-img");
+
+  cardImage.src = item.link;
+  cardImage.alt = item.name;
   cardElement.querySelector(".elements__card-title").textContent = item.name;
 
   cardElement
@@ -62,14 +63,12 @@ function createCard(item) {
   cardElement
     .querySelector(".elements__card-delete-button")
     .addEventListener("click", deleteCard);
-  cardElement
-    .querySelector(".elements__card-img")
-    .addEventListener("click", () => {
-      openPopup(cardImagePopup);
-      cardBigImage.src = item.link;
-      cardBigImage.alt = `Фото ${item.name}.`;
-      cardBigImageDescription.textContent = item.name;
-    });
+  cardImage.addEventListener("click", () => {
+    openPopup(cardImagePopup);
+    cardBigImage.src = item.link;
+    cardBigImage.alt = `Фото ${item.name}.`;
+    cardBigImageDescription.textContent = item.name;
+  });
 
   return cardElement;
 }
@@ -102,9 +101,8 @@ function profileEditSubmitHandler(evt) {
 }
 
 function setInputValues() {
-  profileEditForm.reset();
-  nameInput.setAttribute("value", profileName.textContent);
-  descriptionInput.setAttribute("value", profileDescription.textContent);
+  nameInput.value = profileName.textContent;
+  descriptionInput.value = profileDescription.textContent;
 }
 
 function likeCard(evt) {
