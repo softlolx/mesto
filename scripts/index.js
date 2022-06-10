@@ -6,9 +6,9 @@ const cardAddLinkInput = document.querySelector(".popup__input_type_card-link");
 const cardAddNameInput = document.querySelector(".popup__input_type_card-name");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
-const editProfileButton = document.querySelector(".profile__edit-button");
+const buttonEditProfile = document.querySelector(".profile__edit-button");
 const cardAddButton = document.querySelector(".profile__add-button");
-const closePopupButton = document.querySelectorAll(".popup__close-button");
+const buttonClosePopup = document.querySelectorAll(".popup__close-button");
 const cardImagePopup = document.querySelector(".popup_content_image");
 const cardBigImage = cardImagePopup.querySelector(".popup__image");
 const cardBigImageDescription = cardImagePopup.querySelector(
@@ -18,6 +18,7 @@ const nameInput = document.querySelector(".popup__input_type_name");
 const descriptionInput = document.querySelector(
   ".popup__input_type_description"
 );
+
 const cardsContainer = document.querySelector(".elements__grid");
 const cardTemplate = document.querySelector("#elements__card").content;
 
@@ -74,8 +75,8 @@ function createCard(item) {
 }
 
 function renderCard(item) {
-  const readyCard = createCard(item);
-  cardsContainer.prepend(readyCard);
+  const cardReady = createCard(item);
+  cardsContainer.prepend(cardReady);
 }
 
 initialCards.forEach((item) => renderCard(item));
@@ -86,6 +87,8 @@ function cardAddSubmitHandler(evt) {
     name: cardAddNameInput.value,
     link: cardAddLinkInput.value,
   };
+  const buttonFormSubmit = evt.target.querySelector(".popup__submit-button");
+  buttonFormSubmit.setAttribute("disabled", "");
   renderCard(newCard);
   cardAddForm.reset();
   closePopup(cardAddPopup);
@@ -112,7 +115,7 @@ function deleteCard(evt) {
   evt.target.closest(".elements__card").remove();
 }
 
-editProfileButton.addEventListener("click", () => {
+buttonEditProfile.addEventListener("click", () => {
   openPopup(profileEditPopup);
   setInputValues();
 });
@@ -121,7 +124,7 @@ cardAddButton.addEventListener("click", () => {
   openPopup(cardAddPopup);
 });
 
-closePopupButton.forEach((item) =>
+buttonClosePopup.forEach((item) =>
   item.addEventListener("click", () => {
     const currentPopup = item.closest(".popup");
     closePopup(currentPopup);

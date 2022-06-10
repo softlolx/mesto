@@ -10,3 +10,9 @@
   line-height: 15px;
   font-weight: normal;
 }
+
+@media screen and (max-width: 550px) {
+  .popup__error {
+    width: 238px;
+  }
+}
