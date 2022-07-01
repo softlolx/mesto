@@ -1,8 +1,15 @@
-const cardsContainer = document.querySelector(".elements__grid");
-class Card {
-  constructor(data, templateSelector) {
-    this._image = data.link;
-    this._name = data.name;
+import {
+  cardImagePopup,
+  cardBigImage,
+  cardBigImageDescription,
+  openPopup,
+} from "./index.js";
+
+//BEGINNING, TO IMPORT EVERYTHING ABOVE
+export default class Card {
+  constructor(link, name, templateSelector) {
+    this._image = link;
+    this._name = name;
     this._template = templateSelector;
   }
 
@@ -15,12 +22,12 @@ class Card {
     return cardElement;
   }
 
-  createCard() {
+  generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
 
     this._element.querySelector(".elements__card-img").src = this._image;
-    this._element.querySelector(".elements__card-img").alt = this._image;
+    this._element.querySelector(".elements__card-img").alt = this._name;
     this._element.querySelector(".elements__card-title").textContent =
       this._name;
 
@@ -35,6 +42,13 @@ class Card {
 
   _handleDeleteCard() {
     this._element.remove();
+  }
+
+  _handleOpenImagePopup() {
+    cardBigImage.src = this._image;
+    cardBigImage.alt = `Фото ${this._name}.`;
+    cardBigImageDescription.textContent = this._name;
+    openPopup(cardImagePopup);
   }
 
   _setEventListeners() {
@@ -53,22 +67,7 @@ class Card {
     this._element
       .querySelector(".elements__card-img")
       .addEventListener("click", () => {
-        console.log("im openpopup");
+        this._handleOpenImagePopup();
       });
   }
-  //   cardElement
-  //     .querySelector(".elements__card-img")
-  //     .addEventListener("click", () => {
-  //       openPopup(cardImagePopup);
-  //       cardBigImage.src = item.link;
-  //       cardBigImage.alt = `Фото ${item.name}.`;
-  //       cardBigImageDescription.textContent = item.name;
-  //     });
 }
-
-initialCards.forEach((item) => {
-  const card = new Card(item, "#elements__card");
-  const readyCard = card.createCard();
-
-  cardsContainer.prepend(readyCard);
-});
