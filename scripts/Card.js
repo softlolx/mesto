@@ -5,7 +5,6 @@ import {
   openPopup,
 } from "./index.js";
 
-//BEGINNING, TO IMPORT EVERYTHING ABOVE
 export default class Card {
   constructor(link, name, templateSelector) {
     this._image = link;
