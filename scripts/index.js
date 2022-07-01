@@ -1,3 +1,9 @@
+import Card from "./Card.js";
+import { initialCards } from "./cards.js";
+import { FormValidator } from "./FormValidator.js";
+
+const formList = Array.from(document.querySelectorAll(".popup__form"));
+const submitButton = document.querySelectorAll(".popup__submit-button");
 const profileEditPopup = document.querySelector(".popup_content_profile");
 const cardAddPopup = document.querySelector(".popup_content_add-card");
 const profileEditForm = document.querySelector(".popup__form_content_profile");
@@ -20,7 +26,6 @@ const descriptionInput = document.querySelector(
 );
 
 const cardsContainer = document.querySelector(".elements__grid");
-const cardTemplate = document.querySelector("#elements__card").content;
 
 function closePopupByOverlay(evt) {
   if (evt.target == evt.currentTarget) {
@@ -43,34 +48,7 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupByEsc);
-}
-
-function createCard(item) {
-  const cardElement = cardTemplate
-    .querySelector(".elements__card")
-    .cloneNode(true);
-
-  const cardImage = cardElement.querySelector(".elements__card-img");
-
-  cardImage.src = item.link;
-  cardImage.alt = item.name;
-  cardElement.querySelector(".elements__card-title").textContent = item.name;
-
-  cardElement
-    .querySelector(".elements__card-like-button")
-    .addEventListener("click", likeCard);
-  cardElement
-    .querySelector(".elements__card-delete-button")
-    .addEventListener("click", deleteCard);
-  cardImage.addEventListener("click", () => {
-    openPopup(cardImagePopup);
-    cardBigImage.src = item.link;
-    cardBigImage.alt = `Фото ${item.name}.`;
-    cardBigImageDescription.textContent = item.name;
-  });
-
-  return cardElement;
+  disableSubmitButton();
 }
 
 function renderCard(item) {
@@ -78,17 +56,15 @@ function renderCard(item) {
   cardsContainer.prepend(cardReady);
 }
 
-initialCards.forEach((item) => renderCard(item));
-
 function cardAddSubmitHandler(evt) {
   evt.preventDefault();
-  const newCard = {
-    name: cardAddNameInput.value,
-    link: cardAddLinkInput.value,
-  };
-  const buttonFormSubmit = evt.target.querySelector(".popup__submit-button");
-  buttonFormSubmit.setAttribute("disabled", "");
-  renderCard(newCard);
+  const card = new Card(
+    cardAddLinkInput.value,
+    cardAddNameInput.value,
+    "#elements__card"
+  );
+  const readyCard = card.generateCard();
+  cardsContainer.prepend(readyCard);
   cardAddForm.reset();
   closePopup(cardAddPopup);
 }
@@ -105,12 +81,11 @@ function setInputValues() {
   descriptionInput.value = profileDescription.textContent;
 }
 
-function likeCard(evt) {
-  evt.target.classList.toggle("elements__card-like-button_active");
-}
-
-function deleteCard(evt) {
-  evt.target.closest(".elements__card").remove();
+function disableSubmitButton() {
+  Array.from(submitButton).forEach((item) => {
+    item.classList.add("popup__submit-button_disabled");
+    item.setAttribute("disabled", "");
+  });
 }
 
 buttonEditProfile.addEventListener("click", () => {
@@ -132,3 +107,32 @@ buttonClosePopup.forEach((item) =>
 profileEditForm.addEventListener("submit", profileEditSubmitHandler);
 
 cardAddForm.addEventListener("submit", cardAddSubmitHandler);
+
+initialCards.forEach((item) => {
+  const card = new Card(item.link, item.name, "#elements__card");
+  const readyCard = card.generateCard();
+  cardsContainer.prepend(readyCard);
+});
+
+export const elements = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+formList.forEach((item) => {
+  const form = new FormValidator(elements, item);
+  form.enableValidation();
+});
+
+export {
+  cardsContainer,
+  cardImagePopup,
+  cardBigImage,
+  cardBigImageDescription,
+  openPopup,
+  renderCard,
+};
