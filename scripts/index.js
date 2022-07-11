@@ -55,7 +55,7 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-
+  popup.removeEventListener("click", closePopupByOverlay);
   document.removeEventListener("keydown", closePopupByEsc);
 }
 
@@ -68,7 +68,6 @@ function handleCardAddSubmit(evt) {
   evt.preventDefault();
   const readyCard = createCard(cardAddLinkInput.value, cardAddNameInput.value);
   cardsContainer.prepend(readyCard);
-  formValidators["addcard"].resetValidation();
   closePopup(cardAddPopup);
 }
 
@@ -102,12 +101,12 @@ cardAddButton.addEventListener("click", () => {
   openPopup(cardAddPopup);
 });
 
-closeButtons.forEach((item) =>
+closeButtons.forEach((item) => {
+  const currentPopup = item.closest(".popup");
   item.addEventListener("click", () => {
-    const currentPopup = item.closest(".popup");
     closePopup(currentPopup);
-  })
-);
+  });
+});
 
 profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 
