@@ -57,12 +57,14 @@ export class FormValidator {
     });
   }
 
+  //Эх, а я сам заметил через минуту после того, как отправил на ревью, поправил, но видимо уже поздно было :) Спасибо!
+
   resetValidation() {
     this._form.reset();
+    this._toggleSubmitButtonState();
     this._inputList.forEach((inputElement) => {
       this._hideInputError(this._form, inputElement);
     });
-    this._toggleSubmitButtonState();
   }
 
   _setEventListeners() {
