@@ -16,20 +16,13 @@ export class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-
-    this._likeButton = this._element.querySelector(
-      ".elements__card-like-button"
-    );
+    this._likeButton = this._element.querySelector(".elements__card-like-button");
     this._cardImage = this._element.querySelector(".elements__card-img");
     this._cardTitle = this._element.querySelector(".elements__card-title");
-    this._deleteButton = this._element.querySelector(
-      ".elements__card-delete-button"
-    );
-
+    this._deleteButton = this._element.querySelector(".elements__card-delete-button");
     this._cardImage.src = this._image;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
-
     this._setEventListeners();
     return this._element;
   }

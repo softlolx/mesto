@@ -6,16 +6,15 @@ export class FormValidator {
     this._inputErrorClass = elements.inputErrorClass;
     this._inactiveButtonClass = elements.inactiveButtonClass;
     this._submitButtonSelector = elements.submitButtonSelector;
-
-    this._inputList = Array.from(
-      this._form.querySelectorAll(this._inputSelector)
-    );
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._buttonElement = this._form.querySelector(this._submitButtonSelector);
   }
 
   enableValidation() {
     this._setEventListeners();
   }
+
+  // Показать/скрыть ошибку поля ввода
 
   _showInputError(formElement, inputElement, errorMessage) {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -31,23 +30,13 @@ export class FormValidator {
     errorElement.textContent = "";
   }
 
+  // Проверяем валидность ввода (при каждом изменении инпута)
+
   _checkInputValidity(formElement, inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(
-        formElement,
-        inputElement,
-        inputElement.validationMessage
-      );
+      this._showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
       this._hideInputError(formElement, inputElement);
-    }
-  }
-
-  _toggleSubmitButtonState() {
-    if (this._hasInvalidInput(this._inputList)) {
-      this._buttonElement.setAttribute("disabled", "");
-    } else {
-      this._buttonElement.removeAttribute("disabled", "");
     }
   }
 
@@ -57,7 +46,17 @@ export class FormValidator {
     });
   }
 
-  //Эх, а я сам заметил через минуту после того, как отправил на ревью, поправил, но видимо уже поздно было :) Спасибо!
+  // Вкл/выкл кнопку сабмита
+
+  _toggleSubmitButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.setAttribute("disabled", "");
+    } else {
+      this._buttonElement.removeAttribute("disabled", "");
+    }
+  }
+
+  // Очистка формы, ошибок валидации и выключение кнопки. Используется в индексе при каждом открытии формы.
 
   resetValidation() {
     this._form.reset();
@@ -69,7 +68,6 @@ export class FormValidator {
 
   _setEventListeners() {
     this._toggleSubmitButtonState();
-
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(this._form, inputElement);
