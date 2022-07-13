@@ -1,5 +1,6 @@
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
+import { Section } from "../components/Section.js";
 import {
   initialCards,
   elements,
@@ -51,23 +52,29 @@ function closePopupByEsc(evt) {
 
 // Универсальная функция создания карточки
 
-function createCard(link, name) {
-  const card = new Card(link, name, "#elements__card", handleCardClick);
+function createCard(cardElement) {
+  const card = new Card(cardElement, "#elements__card", handleCardClick);
   return card.generateCard();
 }
 
 // Создание начальных 6 карточек
 
-initialCards.forEach((item) => {
-  const readyCard = createCard(item.link, item.name);
-  cardsContainer.prepend(readyCard);
-});
+const renderCards = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = createCard(item);
+      renderCards.addItem(card);
+    },
+  },
+  cardsContainer
+);
 
 // Обработчики действий с формами и кликов по карточке
 
 function handleCardAddSubmit(evt) {
   evt.preventDefault();
-  const readyCard = createCard(cardAddLinkInput.value, cardAddNameInput.value);
+  const readyCard = createCard({ link: cardAddLinkInput.value, name: cardAddNameInput.value });
   cardsContainer.prepend(readyCard);
   closePopup(cardAddPopup);
 }
@@ -130,3 +137,5 @@ function enableValidation(config) {
 }
 
 enableValidation(elements);
+
+renderCards.renderItems();
