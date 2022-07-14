@@ -57,17 +57,7 @@ function handleCardAddSubmit(data) {
   renderCards.addItem(card);
 }
 
-// Попап картинки
-
-const popupImg = new PopupWithImage(cardImagePopup);
-
-popupImg.setEventListeners();
-
-function handleCardClick(link, name) {
-  popupImg.open(link, name);
-}
-
-//Редактирование профиля
+// Редактирование профиля
 
 const popupProfile = new PopupWithForm(profileEditPopup, handleProfileEditSubmit);
 
@@ -90,6 +80,16 @@ buttonEditProfile.addEventListener("click", () => {
   setInputValues(info);
   popupProfile.open();
 });
+
+// Попап картинки
+
+const popupImg = new PopupWithImage(cardImagePopup);
+
+popupImg.setEventListeners();
+
+function handleCardClick(link, name) {
+  popupImg.open(link, name);
+}
 
 // Валидация
 

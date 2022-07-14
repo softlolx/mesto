@@ -9,8 +9,8 @@ const elements = {
   userInfoSelector: ".profile__description",
 };
 
-const profileEditPopup = document.querySelector(".popup_content_profile");
 const cardAddPopup = document.querySelector(".popup_content_add-card");
+const profileEditPopup = document.querySelector(".popup_content_profile");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const buttonEditProfile = document.querySelector(".profile__edit-button");
