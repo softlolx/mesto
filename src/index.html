@@ -4,19 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/pages/index.css" />
+    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
     <title>Место</title>
-    <link rel="icon" type="image/x-icon" href="./src/images/favicon.ico" />
+    <!-- <link rel="icon" type="image/x-icon" href="./images/favicon.ico" /> -->
+    <link rel="icon" type="image/x-icon" href="<%=require('./images/favicon.ico')%>" />
   </head>
   <body class="root">
     <div class="page">
       <header class="header">
-        <img src="./src/images/logo.svg" alt="Логотип Место Россия" class="header__logo" />
+        <!-- <img src="./images/logo.svg" alt="Логотип Место Россия" class="header__logo" /> -->
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Логотип Место Россия"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__content">
-            <img src="./src/images/Cousteau_photo.png" alt="Фото профиля" class="profile__avatar" />
+            <!-- <img src="./images/Cousteau_photo.png" alt="Фото профиля" class="profile__avatar" /> -->
+            <img
+              src="<%=require('./images/Cousteau_photo.png')%>"
+              alt="Фото профиля"
+              class="profile__avatar"
+            />
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button type="button" class="profile__edit-button"></button>
@@ -131,6 +142,6 @@
       </div>
     </div>
 
-    <script type="module" src="./src/pages/index.js"></script>
+    <!-- <script type="module" src="./pages/index.js"></script> -->
   </body>
 </html>
