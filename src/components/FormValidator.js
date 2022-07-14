@@ -16,15 +16,15 @@ export class FormValidator {
 
   // Показать/скрыть ошибку поля ввода
 
-  _showInputError(formElement, inputElement, errorMessage) {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
   }
 
-  _hideInputError(formElement, inputElement) {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
@@ -32,11 +32,11 @@ export class FormValidator {
 
   // Проверяем валидность ввода (при каждом изменении инпута)
 
-  _checkInputValidity(formElement, inputElement) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(formElement, inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(formElement, inputElement);
+      this._hideInputError(inputElement);
     }
   }
 
@@ -61,7 +61,7 @@ export class FormValidator {
   resetValidation() {
     this._toggleSubmitButtonState();
     this._inputList.forEach((inputElement) => {
-      this._hideInputError(this._form, inputElement);
+      this._hideInputError(inputElement);
     });
   }
 
@@ -69,7 +69,7 @@ export class FormValidator {
     this._toggleSubmitButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(this._form, inputElement);
+        this._checkInputValidity(inputElement);
         this._toggleSubmitButtonState();
       });
     });
