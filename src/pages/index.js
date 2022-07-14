@@ -73,10 +73,7 @@ const popupProfile = new PopupWithForm(profileEditPopup, handleProfileEditSubmit
 
 popupProfile.setEventListeners();
 
-const userInfo = new UserInfo({
-  userName: profileName,
-  userInfo: profileDescription,
-});
+const userInfo = new UserInfo(elements);
 
 function setInputValues({ name, info }) {
   nameInput.value = name;

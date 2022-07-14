@@ -5,6 +5,8 @@ const elements = {
   inactiveButtonClass: "popup__submit-button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
+  userNameSelector: ".profile__name",
+  userInfoSelector: ".profile__description",
 };
 
 const profileEditPopup = document.querySelector(".popup_content_profile");

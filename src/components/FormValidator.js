@@ -59,7 +59,6 @@ export class FormValidator {
   // Очистка формы, ошибок валидации и выключение кнопки. Используется в индексе при каждом открытии формы.
 
   resetValidation() {
-    this._form.reset();
     this._toggleSubmitButtonState();
     this._inputList.forEach((inputElement) => {
       this._hideInputError(this._form, inputElement);
