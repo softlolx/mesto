@@ -1,6 +1,8 @@
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
+import { Popup } from "../components/Popup.js";
+
 import {
   initialCards,
   elements,
@@ -22,33 +24,34 @@ import {
   descriptionInput,
   cardsContainer,
 } from "../utils/constants.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
 
 // Открытие и закрытие попапов
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  popup.addEventListener("mousedown", closePopupByOverlay);
-  document.addEventListener("keydown", closePopupByEsc);
-}
+// function openPopup(popup) {
+//   popup.classList.add("popup_opened");
+//   popup.addEventListener("mousedown", closePopupByOverlay);
+//   document.addEventListener("keydown", closePopupByEsc);
+// }
 
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  popup.removeEventListener("mousedown", closePopupByOverlay);
-  document.removeEventListener("keydown", closePopupByEsc);
-}
+// function closePopup(popup) {
+//   popup.classList.remove("popup_opened");
+//   popup.removeEventListener("mousedown", closePopupByOverlay);
+//   document.removeEventListener("keydown", closePopupByEsc);
+// }
 
-function closePopupByOverlay(evt) {
-  if (evt.target == evt.currentTarget) {
-    closePopup(evt.target);
-  }
-}
+// function closePopupByOverlay(evt) {
+//   if (evt.target == evt.currentTarget) {
+//     closePopup(evt.target);
+//   }
+// }
 
-function closePopupByEsc(evt) {
-  if (evt.key == "Escape") {
-    const currentPopup = document.querySelector(".popup_opened");
-    closePopup(currentPopup);
-  }
-}
+// function closePopupByEsc(evt) {
+//   if (evt.key == "Escape") {
+//     const currentPopup = document.querySelector(".popup_opened");
+//     closePopup(currentPopup);
+//   }
+// }
 
 // Универсальная функция создания карточки
 
@@ -92,10 +95,9 @@ function setInputValues() {
 }
 
 function handleCardClick(link, name) {
-  cardBigImage.src = link;
-  cardBigImage.alt = `Фото ${name}.`;
-  cardBigImageDescription.textContent = name;
-  openPopup(cardImagePopup);
+  const card = new PopupWithImage(cardImagePopup);
+  card.open(link, name);
+  card.setEventListeners();
 }
 
 //Event listeners
@@ -111,12 +113,12 @@ cardAddButton.addEventListener("click", () => {
   openPopup(cardAddPopup);
 });
 
-closeButtons.forEach((item) => {
-  const currentPopup = item.closest(".popup");
-  item.addEventListener("click", () => {
-    closePopup(currentPopup);
-  });
-});
+// closeButtons.forEach((item) => {
+//   const currentPopup = item.closest(".popup");
+//   item.addEventListener("click", () => {
+//     closePopup(currentPopup);
+//   });
+// });
 
 profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 
