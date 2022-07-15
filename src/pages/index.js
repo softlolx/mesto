@@ -9,13 +9,8 @@ import "./index.css";
 import {
   initialCards,
   elements,
-  profileEditPopup,
-  cardAddPopup,
-  profileName,
-  profileDescription,
   buttonEditProfile,
   cardAddButton,
-  cardImagePopup,
   nameInput,
   descriptionInput,
   cardsContainer,
@@ -43,7 +38,7 @@ renderCards.renderItems();
 
 // Добавление карточек
 
-const popupAddCard = new PopupWithForm(".popup_content_add-card", handleCardAddSubmit);
+const popupAddCard = new PopupWithForm(elements.cardAddPopup, handleCardAddSubmit);
 
 popupAddCard.setEventListeners();
 
@@ -59,7 +54,7 @@ function handleCardAddSubmit(data) {
 
 // Редактирование профиля
 
-const popupProfile = new PopupWithForm(".popup_content_profile", handleProfileEditSubmit);
+const popupProfile = new PopupWithForm(elements.profileEditPopup, handleProfileEditSubmit);
 
 popupProfile.setEventListeners();
 
@@ -77,13 +72,16 @@ function handleProfileEditSubmit(data) {
 buttonEditProfile.addEventListener("click", () => {
   formValidators["profile"].resetValidation();
   const info = userInfo.getUserInfo();
+
+  // после выходных перенести в PopupWithForm
   setInputValues(info);
+
   popupProfile.open();
 });
 
 // Попап картинки
 
-const popupImg = new PopupWithImage(cardImagePopup);
+const popupImg = new PopupWithImage(elements.cardImagePopup);
 
 popupImg.setEventListeners();
 

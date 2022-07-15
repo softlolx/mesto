@@ -7,15 +7,13 @@ const elements = {
   errorClass: "popup__error_visible",
   userNameSelector: ".profile__name",
   userInfoSelector: ".profile__description",
+  cardAddPopup: ".popup_content_add-card",
+  profileEditPopup: ".popup_content_profile",
+  cardImagePopup: ".popup_content_image",
 };
 
-const cardAddPopup = document.querySelector(".popup_content_add-card");
-const profileEditPopup = document.querySelector(".popup_content_profile");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
 const buttonEditProfile = document.querySelector(".profile__edit-button");
 const cardAddButton = document.querySelector(".profile__add-button");
-const cardImagePopup = document.querySelector(".popup_content_image");
 const nameInput = document.querySelector(".popup__input_type_name");
 const descriptionInput = document.querySelector(".popup__input_type_description");
 const cardsContainer = document.querySelector(".elements__grid");
@@ -50,13 +48,8 @@ const initialCards = [
 export {
   initialCards,
   elements,
-  profileEditPopup,
-  cardAddPopup,
-  profileName,
-  profileDescription,
   buttonEditProfile,
   cardAddButton,
-  cardImagePopup,
   nameInput,
   descriptionInput,
   cardsContainer,
