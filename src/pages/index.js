@@ -43,7 +43,7 @@ renderCards.renderItems();
 
 // Добавление карточек
 
-const popupAddCard = new PopupWithForm(cardAddPopup, handleCardAddSubmit);
+const popupAddCard = new PopupWithForm(".popup_content_add-card", handleCardAddSubmit);
 
 popupAddCard.setEventListeners();
 
@@ -59,7 +59,7 @@ function handleCardAddSubmit(data) {
 
 // Редактирование профиля
 
-const popupProfile = new PopupWithForm(profileEditPopup, handleProfileEditSubmit);
+const popupProfile = new PopupWithForm(".popup_content_profile", handleProfileEditSubmit);
 
 popupProfile.setEventListeners();
 
