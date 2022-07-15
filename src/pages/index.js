@@ -25,7 +25,6 @@ function createCard(cardElement) {
 
 const renderCards = new Section(
   {
-    items: initialCards,
     renderer: (item) => {
       const card = createCard(item);
       renderCards.addItem(card);
@@ -34,7 +33,7 @@ const renderCards = new Section(
   cardsContainer
 );
 
-renderCards.renderItems();
+renderCards.renderItems(initialCards);
 
 // Добавление карточек
 
