@@ -59,11 +59,6 @@ popupProfile.setEventListeners();
 
 const userInfo = new UserInfo(elements);
 
-function setInputValues({ name, info }) {
-  nameInput.value = name;
-  descriptionInput.value = info;
-}
-
 function handleProfileEditSubmit(data) {
   userInfo.setUserInfo(data);
 }
@@ -71,10 +66,7 @@ function handleProfileEditSubmit(data) {
 buttonEditProfile.addEventListener("click", () => {
   formValidators["profile"].resetValidation();
   const info = userInfo.getUserInfo();
-
-  // после выходных перенести в PopupWithForm
-  setInputValues(info);
-
+  popupProfile.setInputValues(info);
   popupProfile.open();
 });
 
