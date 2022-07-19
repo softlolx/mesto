@@ -15,4 +15,6 @@ const presets = [
   ],
 ];
 
+const plugins = ["@babel/plugin-proposal-pipeline-operator"];
+
 module.exports = { presets };
