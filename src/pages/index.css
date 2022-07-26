@@ -51,3 +51,4 @@
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__container/_type/popup__container_type_confirmation.css);
 @import url(../blocks/popup/__title/_type/popup__title_type_confirmation.css);
+@import url(../blocks/popup/__container/_type/popup__container_type_avatar.css);

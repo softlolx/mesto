@@ -92,6 +92,29 @@
         </div>
       </div>
 
+      <!-- Попап редактирования аватара -->
+
+      <div class="popup popup_content_avatar popup_opened" id="profile-edit-popup">
+        <div class="popup__container popup__container_type_avatar">
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form name="avatar" action="#" class="popup__form" novalidate>
+            <input
+              type="url"
+              class="popup__input popup__input_type_avatar"
+              name="avatar"
+              required
+              minlength="2"
+              maxlength="200"
+              placeholder="Ссылка на аватар"
+              id="avatar-input"
+            />
+            <span class="popup__error" id="avatar-input-error"></span>
+            <button type="submit" class="popup__submit-button">Сохранить</button>
+          </form>
+          <button type="button" class="popup__close-button"></button>
+        </div>
+      </div>
+
       <!-- Попап добавления карточки -->
 
       <div class="popup popup_content_add-card" id="card-add-popup">
@@ -141,7 +164,7 @@
 
       <!-- Попап подтверждения -->
 
-      <div class="popup popup_content_confirmation popup_opened" id="confirmation-popup">
+      <div class="popup popup_content_confirmation" id="confirmation-popup">
         <div class="popup__container popup__container_type_confirmation">
           <h3 class="popup__title popup__title_type_confirmation">Вы уверены?</h3>
           <form
