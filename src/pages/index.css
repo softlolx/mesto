@@ -53,3 +53,5 @@
 @import url(../blocks/popup/__title/_type/popup__title_type_confirmation.css);
 @import url(../blocks/popup/__container/_type/popup__container_type_avatar.css);
 @import url(../blocks/profile/__avatar-image/profile__avatar-image.css);
+@import url(../blocks/elements/__card-like-container/elements__card-like-container.css);
+@import url(../blocks/elements/__card-like-counter/elements__card-like-counter.css);
