@@ -20,12 +20,13 @@
       <main class="content">
         <section class="profile">
           <div class="profile__content">
-            <!-- <img src="./images/Cousteau_photo.png" alt="Фото профиля" class="profile__avatar" /> -->
-            <img
-              src="<%=require('./images/Cousteau_photo.png')%>"
-              alt="Фото профиля"
-              class="profile__avatar"
-            />
+            <div class="profile__avatar">
+              <img
+                src="<%=require('./images/Cousteau_photo.png')%>"
+                alt="Фото профиля"
+                class="profile__avatar-image"
+              />
+            </div>
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button type="button" class="profile__edit-button"></button>
@@ -94,7 +95,7 @@
 
       <!-- Попап редактирования аватара -->
 
-      <div class="popup popup_content_avatar popup_opened" id="profile-edit-popup">
+      <div class="popup popup_content_avatar" id="profile-edit-popup">
         <div class="popup__container popup__container_type_avatar">
           <h3 class="popup__title">Обновить аватар</h3>
           <form name="avatar" action="#" class="popup__form" novalidate>
