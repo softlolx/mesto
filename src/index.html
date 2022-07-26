@@ -138,6 +138,25 @@
           <button type="button" class="popup__close-button"></button>
         </figure>
       </div>
+
+      <!-- Попап подтверждения -->
+
+      <div class="popup popup_content_confirmation popup_opened" id="confirmation-popup">
+        <div class="popup__container popup__container_type_confirmation">
+          <h3 class="popup__title popup__title_type_confirmation">Вы уверены?</h3>
+          <form
+            name="confirm"
+            action="#"
+            class="popup__form popup__form_content_add-card"
+            novalidate
+          >
+            <button type="submit" class="popup__submit-button popup__submit-button_type_confirm">
+              Да
+            </button>
+          </form>
+          <button type="button" class="popup__close-button"></button>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="./pages/index.js"></script>
