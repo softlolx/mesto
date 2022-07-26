@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+  devtool: "eval-source-map",
   entry: {
     main: "./src/pages/index.js",
   },
@@ -23,7 +24,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: "babel-loader",
+        use: ["babel-loader", "source-map-loader"],
         exclude: "/node_modules/",
       },
       {
@@ -42,6 +43,11 @@ module.exports = {
           },
           "postcss-loader",
         ],
+      },
+      {
+        test: /\.js$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
       },
     ],
   },
