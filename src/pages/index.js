@@ -8,7 +8,13 @@ import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
 import "./index.css";
 
-import { elements, buttonEditProfile, cardAddButton, cardsContainer } from "../utils/constants.js";
+import {
+  elements,
+  buttonEditProfile,
+  cardAddButton,
+  cardsContainer,
+  buttonChangeAvatar,
+} from "../utils/constants.js";
 
 // Создание карточек
 
@@ -73,10 +79,6 @@ const popupConfirmation = new PopupWithConfirmation(elements.confirmationPopup, 
 
 popupConfirmation.setEventListeners();
 
-// function handleDeleteCardClick(cardId) {
-//   popupConfirmation.open(cardId);
-// }
-
 // Редактирование профиля
 
 const popupProfile = new PopupWithForm(elements.profileEditPopup, handleProfileEditSubmit);
@@ -94,6 +96,19 @@ buttonEditProfile.addEventListener("click", () => {
   const info = userInfo.getUserInfo();
   popupProfile.setInputValues(info);
   popupProfile.open();
+});
+
+// Смена аватарки
+
+const avatarPopup = new PopupWithForm(elements.avatarPopup, handleChangeAvatarSubmit);
+
+avatarPopup.setEventListeners();
+
+function handleChangeAvatarSubmit() {}
+
+buttonChangeAvatar.addEventListener("click", () => {
+  avatarPopup.open();
+  formValidators["avatar"].resetValidation();
 });
 
 // Попап картинки

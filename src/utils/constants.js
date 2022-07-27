@@ -7,12 +7,15 @@ const elements = {
   errorClass: "popup__error_visible",
   userNameSelector: ".profile__name",
   userInfoSelector: ".profile__description",
+  avatarSelector: ".profile__avatar-image",
+  avatarPopup: ".popup_content_avatar",
   cardAddPopup: ".popup_content_add-card",
   profileEditPopup: ".popup_content_profile",
   cardImagePopup: ".popup_content_image",
   confirmationPopup: ".popup_content_confirmation",
 };
 
+const buttonChangeAvatar = document.querySelector(".profile__avatar-image");
 const buttonEditProfile = document.querySelector(".profile__edit-button");
 const cardAddButton = document.querySelector(".profile__add-button");
 const nameInput = document.querySelector(".popup__input_type_name");
@@ -54,4 +57,5 @@ export {
   nameInput,
   descriptionInput,
   cardsContainer,
+  buttonChangeAvatar,
 };
