@@ -61,20 +61,26 @@ cardAddButton.addEventListener("click", () => {
 });
 
 function handleCardAddSubmit(data) {
-  api.addNewCard(data).then((res) => {
-    const card = createCard(res);
-    renderCards.addItem(card);
-  });
+  api
+    .addNewCard(data)
+    .then((res) => {
+      const card = createCard(res);
+      renderCards.addItem(card);
+    })
+    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
 }
 
 // Удаление карточек
 
 const popupConfirmation = new PopupWithConfirmation(elements.confirmationPopup, (card) => {
-  api.deleteCard(card._id).then(() => {
-    console.log(card);
-    card.deleteCard();
-    popupConfirmation.close();
-  });
+  api
+    .deleteCard(card._id)
+    .then(() => {
+      console.log(card);
+      card.deleteCard();
+      popupConfirmation.close();
+    })
+    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
 });
 
 popupConfirmation.setEventListeners();
@@ -88,7 +94,10 @@ popupProfile.setEventListeners();
 const userInfo = new UserInfo(elements);
 
 function handleProfileEditSubmit(data) {
-  api.setUserInfo(data).then((res) => userInfo.setUserInfo(res));
+  api
+    .setUserInfo(data)
+    .then((res) => userInfo.setUserInfo(res))
+    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
 }
 
 buttonEditProfile.addEventListener("click", () => {
@@ -105,9 +114,12 @@ const avatarPopup = new PopupWithForm(elements.avatarPopup, handleChangeAvatarSu
 avatarPopup.setEventListeners();
 
 function handleChangeAvatarSubmit(data) {
-  api.changeAvatar(data).then((res) => {
-    userInfo.setUserAvatar(res);
-  });
+  api
+    .changeAvatar(data)
+    .then((res) => {
+      userInfo.setUserAvatar(res);
+    })
+    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
 }
 
 buttonChangeAvatar.addEventListener("click", () => {
@@ -149,18 +161,11 @@ const api = new Api({
   },
 });
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then(([userData, cards]) => {
-  userId = userData._id;
-  userInfo.setUserInfo(userData);
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData);
 
-  renderCards.renderItems(cards.reverse());
-});
-
-// api.getUserInfo().then((userData) => {
-//   {
-//     userId = userData._id;
-//     userInfo.setUserInfo(userData);
-//   }
-// });
-
-// api.getInitialCards().then((data) => renderCards.renderItems(data.reverse()));
+    renderCards.renderItems(cards.reverse());
+  })
+  .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
