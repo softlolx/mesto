@@ -18,8 +18,6 @@ import {
 
 // Создание карточек
 
-let userId;
-
 function createCard(data) {
   const card = new Card(
     {
@@ -100,7 +98,6 @@ const popupConfirmation = new PopupWithConfirmation(elements.confirmationPopup, 
   api
     .deleteCard(card._id)
     .then(() => {
-      console.log(card);
       card.deleteCard();
       popupConfirmation.close();
     })
@@ -188,6 +185,8 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
+let userId;
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {

@@ -8,5 +8,6 @@
 }
 
 .profile__avatar-image:hover {
+  cursor: pointer;
   opacity: 0.2;
 }
