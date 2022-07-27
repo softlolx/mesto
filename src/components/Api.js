@@ -8,7 +8,7 @@ export class Api {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return Promise.reject(`Упс, да у вас тут ${res.status}`);
     }
   }
 
@@ -55,6 +55,18 @@ export class Api {
       }),
     }).then(this.handleResponse);
   }
-}
 
-// mda uj
+  addLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this.handleResponse);
+  }
+
+  removeLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this.handleResponse);
+  }
+}

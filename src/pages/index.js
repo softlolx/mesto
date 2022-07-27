@@ -32,8 +32,30 @@ function createCard(data) {
     },
     "#elements__card",
     handleCardClick,
+
+    //DELETE
     () => {
       popupConfirmation.open(card);
+    },
+    //LIKE
+    () => {
+      api
+        .addLike(data._id)
+        .then((res) => {
+          card.addLike();
+          card.setLikeQty(res);
+        })
+        .catch((e) => console.log(e));
+    },
+    //DISLIKE
+    () => {
+      api
+        .removeLike(data._id)
+        .then((res) => {
+          card.removeLike();
+          card.setLikeQty(res);
+        })
+        .catch((e) => console.log(e));
     }
   );
   return card.generateCard();
@@ -61,13 +83,15 @@ cardAddButton.addEventListener("click", () => {
 });
 
 function handleCardAddSubmit(data) {
+  popupAddCard.renderLoading(true, "Сохранение...");
   api
     .addNewCard(data)
     .then((res) => {
       const card = createCard(res);
       renderCards.addItem(card);
     })
-    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
+    .catch((e) => console.log(e))
+    .finally(() => popupAddCard.renderLoading(false));
 }
 
 // Удаление карточек
@@ -80,7 +104,7 @@ const popupConfirmation = new PopupWithConfirmation(elements.confirmationPopup, 
       card.deleteCard();
       popupConfirmation.close();
     })
-    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
+    .catch((e) => console.log(e));
 });
 
 popupConfirmation.setEventListeners();
@@ -94,10 +118,12 @@ popupProfile.setEventListeners();
 const userInfo = new UserInfo(elements);
 
 function handleProfileEditSubmit(data) {
+  popupProfile.renderLoading(true, "Сохранение...");
   api
     .setUserInfo(data)
     .then((res) => userInfo.setUserInfo(res))
-    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
+    .catch((e) => console.log(e))
+    .finally(() => popupProfile.renderLoading(false));
 }
 
 buttonEditProfile.addEventListener("click", () => {
@@ -114,12 +140,14 @@ const avatarPopup = new PopupWithForm(elements.avatarPopup, handleChangeAvatarSu
 avatarPopup.setEventListeners();
 
 function handleChangeAvatarSubmit(data) {
+  avatarPopup.renderLoading(true, "Сохранение...");
   api
     .changeAvatar(data)
     .then((res) => {
       userInfo.setUserAvatar(res);
     })
-    .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
+    .catch((e) => console.log(e))
+    .finally(() => avatarPopup.renderLoading(false));
 }
 
 buttonChangeAvatar.addEventListener("click", () => {
@@ -168,4 +196,4 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     renderCards.renderItems(cards.reverse());
   })
-  .catch((e) => console.log(`Упс, да у вас тут: ${e}`));
+  .catch((e) => console.log(e));

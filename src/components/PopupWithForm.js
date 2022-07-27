@@ -6,6 +6,8 @@ export class PopupWithForm extends Popup {
     this._handleSubmit = handleSubmit;
     this._form = this._popup.querySelector(".popup__form");
     this._inputsList = this._popup.querySelectorAll(".popup__input");
+    this._submitButton = this._form.querySelector(".popup__submit-button");
+    this._submitButtonStandardText = this._submitButton.textContent;
   }
 
   _getInputValues() {
@@ -21,6 +23,14 @@ export class PopupWithForm extends Popup {
     this._inputsList.forEach((item) => {
       item.value = data[item.name];
     });
+  }
+
+  renderLoading(isLoading, text) {
+    if (isLoading) {
+      this._submitButton.textContent = text;
+    } else {
+      this._submitButton.textContent = this._submitButtonStandardText;
+    }
   }
 
   setEventListeners() {

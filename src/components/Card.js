@@ -1,14 +1,23 @@
 export class Card {
-  constructor(data, templateSelector, handleCardClick, handleDeleteCard) {
+  constructor(
+    data,
+    templateSelector,
+    handleCardClick,
+    handleDeleteCard,
+    handleLike,
+    handleDislike
+  ) {
     this._link = data.link;
     this._name = data.name;
     this._id = data.id;
-    this._likeQty = data.likes;
+    this._likes = data.likes;
     this._userId = data.userId;
     this._ownerId = data.ownerId;
     this._template = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeAdd = handleLike;
+    this._handleLikeRemove = handleDislike;
   }
 
   _getTemplate() {
@@ -29,7 +38,8 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
-    this._likeCounter.textContent = `${this._likeQty.length}`;
+    this._likeCounter.textContent = `${this._likes.length}`;
+    this._isLiked();
     this._setEventListeners();
     this.isOwner();
     return this._element;
@@ -42,8 +52,26 @@ export class Card {
     }
   }
 
-  _handleLikeCard() {
-    this._likeButton.classList.toggle("elements__card-like-button_active");
+  _isLiked() {
+    this._likes.forEach((user) => {
+      if (user._id === this._userId) {
+        this.addLike();
+      } else {
+        this.removeLike();
+      }
+    });
+  }
+
+  addLike() {
+    this._likeButton.classList.add("elements__card-like-button_active");
+  }
+
+  removeLike() {
+    this._likeButton.classList.remove("elements__card-like-button_active");
+  }
+
+  setLikeQty(res) {
+    this._likeCounter.textContent = `${res.likes.length}`;
   }
 
   deleteCard() {
@@ -53,7 +81,9 @@ export class Card {
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeCard();
+      this._likeButton.classList.contains("elements__card-like-button_active")
+        ? this._handleLikeRemove()
+        : this._handleLikeAdd();
     });
 
     this._deleteButton.addEventListener("click", () => {
