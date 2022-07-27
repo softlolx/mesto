@@ -104,7 +104,11 @@ const avatarPopup = new PopupWithForm(elements.avatarPopup, handleChangeAvatarSu
 
 avatarPopup.setEventListeners();
 
-function handleChangeAvatarSubmit() {}
+function handleChangeAvatarSubmit(data) {
+  api.changeAvatar(data).then((res) => {
+    userInfo.setUserAvatar(res);
+  });
+}
 
 buttonChangeAvatar.addEventListener("click", () => {
   avatarPopup.open();
@@ -145,12 +149,18 @@ const api = new Api({
   },
 });
 
-api.getUserInfo().then((userData) => {
-  {
-    userId = userData._id;
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then(([userData, cards]) => {
+  userId = userData._id;
+  userInfo.setUserInfo(userData);
 
-    userInfo.setUserInfo(userData);
-  }
+  renderCards.renderItems(cards.reverse());
 });
 
-api.getInitialCards().then((data) => renderCards.renderItems(data.reverse()));
+// api.getUserInfo().then((userData) => {
+//   {
+//     userId = userData._id;
+//     userInfo.setUserInfo(userData);
+//   }
+// });
+
+// api.getInitialCards().then((data) => renderCards.renderItems(data.reverse()));
