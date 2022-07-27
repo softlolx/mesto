@@ -7,13 +7,13 @@ export class PopupWithConfirmation extends Popup {
     this._form = this._popup.querySelector(".popup__form");
   }
 
-  open(data) {
-    this._data = data;
+  open(card) {
+    this._card = card;
     super.open();
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener("submit", () => this._handleSubmit(this._data));
+    this._form.addEventListener("submit", () => this._handleSubmit(this._card));
   }
 }

@@ -26,7 +26,9 @@ function createCard(data) {
     },
     "#elements__card",
     handleCardClick,
-    handleDeleteCardClick
+    () => {
+      popupConfirmation.open(card);
+    }
   );
   return card.generateCard();
 }
@@ -61,18 +63,19 @@ function handleCardAddSubmit(data) {
 
 // Удаление карточек
 
-const popupConfirmation = new PopupWithConfirmation(elements.confirmationPopup, (data) => {
-  api.deleteCard(data).then(() => {
-    console.log(this);
+const popupConfirmation = new PopupWithConfirmation(elements.confirmationPopup, (card) => {
+  api.deleteCard(card._id).then(() => {
+    console.log(card);
+    card.deleteCard();
     popupConfirmation.close();
   });
 });
 
 popupConfirmation.setEventListeners();
 
-function handleDeleteCardClick(cardId) {
-  popupConfirmation.open(cardId);
-}
+// function handleDeleteCardClick(cardId) {
+//   popupConfirmation.open(cardId);
+// }
 
 // Редактирование профиля
 
