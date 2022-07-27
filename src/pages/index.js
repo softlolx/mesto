@@ -4,17 +4,10 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api.js";
 import "./index.css";
 
-import {
-  initialCards,
-  elements,
-  buttonEditProfile,
-  cardAddButton,
-  nameInput,
-  descriptionInput,
-  cardsContainer,
-} from "../utils/constants.js";
+import { elements, buttonEditProfile, cardAddButton, cardsContainer } from "../utils/constants.js";
 
 // Создание карточек
 
@@ -32,8 +25,6 @@ const renderCards = new Section(
   },
   cardsContainer
 );
-
-renderCards.renderItems(initialCards);
 
 // Добавление карточек
 
@@ -60,7 +51,7 @@ popupProfile.setEventListeners();
 const userInfo = new UserInfo(elements);
 
 function handleProfileEditSubmit(data) {
-  userInfo.setUserInfo(data);
+  api.setUserInfo(data).then((res) => userInfo.setUserInfo(res));
 }
 
 buttonEditProfile.addEventListener("click", () => {
@@ -95,3 +86,19 @@ function enableValidation(config) {
 }
 
 enableValidation(elements);
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-47",
+  headers: {
+    authorization: "0fb97600-e542-48f7-932b-9df7c5fc21d8",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getUserInfo().then((userData) => {
+  {
+    userInfo.setUserInfo(userData);
+  }
+});
+
+api.getInitialCards().then((data) => renderCards.renderItems(data.reverse()));
