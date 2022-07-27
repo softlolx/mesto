@@ -3,6 +3,7 @@ import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
 import "./index.css";
@@ -11,8 +12,20 @@ import { elements, buttonEditProfile, cardAddButton, cardsContainer } from "../u
 
 // Создание карточек
 
-function createCard(cardElement) {
-  const card = new Card(cardElement, "#elements__card", handleCardClick);
+let userId;
+
+function createCard(data) {
+  const card = new Card(
+    {
+      name: data.name,
+      link: data.link,
+      likes: data.likes,
+      userId: userId,
+      ownerId: data.owner._id,
+    },
+    "#elements__card",
+    handleCardClick
+  );
   return card.generateCard();
 }
 
@@ -43,6 +56,8 @@ function handleCardAddSubmit(data) {
     renderCards.addItem(card);
   });
 }
+
+// Удаление карточек
 
 // Редактирование профиля
 
@@ -99,6 +114,8 @@ const api = new Api({
 
 api.getUserInfo().then((userData) => {
   {
+    userId = userData._id;
+
     userInfo.setUserInfo(userData);
   }
 });
