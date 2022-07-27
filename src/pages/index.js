@@ -38,8 +38,10 @@ cardAddButton.addEventListener("click", () => {
 });
 
 function handleCardAddSubmit(data) {
-  const card = createCard(data);
-  renderCards.addItem(card);
+  api.addNewCard(data).then((res) => {
+    const card = createCard({ name: res.name, link: res.link });
+    renderCards.addItem(card);
+  });
 }
 
 // Редактирование профиля

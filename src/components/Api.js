@@ -30,6 +30,14 @@ export class Api {
       }),
     }).then(this.handleResponse);
   }
+
+  addNewCard(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(data),
+    }).then(this.handleResponse);
+  }
 }
 
 // mda uj
