@@ -87,6 +87,7 @@ function handleCardAddSubmit(data) {
     .then((res) => {
       const card = createCard(res);
       renderCards.addItem(card);
+      popupAddCard.close();
     })
     .catch((e) => console.log(e))
     .finally(() => popupAddCard.renderLoading(false));
@@ -118,7 +119,10 @@ function handleProfileEditSubmit(data) {
   popupProfile.renderLoading(true, "Сохранение...");
   api
     .setUserInfo(data)
-    .then((res) => userInfo.setUserInfo(res))
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      popupProfile.close();
+    })
     .catch((e) => console.log(e))
     .finally(() => popupProfile.renderLoading(false));
 }
@@ -142,6 +146,7 @@ function handleChangeAvatarSubmit(data) {
     .changeAvatar(data)
     .then((res) => {
       userInfo.setUserAvatar(res);
+      avatarPopup.close();
     })
     .catch((e) => console.log(e))
     .finally(() => avatarPopup.renderLoading(false));
