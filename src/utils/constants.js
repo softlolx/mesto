@@ -10,6 +10,7 @@ const elements = {
   cardAddPopup: ".popup_content_add-card",
   profileEditPopup: ".popup_content_profile",
   cardImagePopup: ".popup_content_image",
+  confirmationPopup: ".popup_content_confirmation",
 };
 
 const buttonEditProfile = document.querySelector(".profile__edit-button");

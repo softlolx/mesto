@@ -38,6 +38,13 @@ export class Api {
       body: JSON.stringify(data),
     }).then(this.handleResponse);
   }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this.handleResponse);
+  }
 }
 
 // mda uj
