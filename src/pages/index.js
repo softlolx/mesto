@@ -35,6 +35,7 @@ function createCard(data) {
     () => {
       popupConfirmation.open(card);
     },
+
     //LIKE
     async () => {
       try {
@@ -45,10 +46,11 @@ function createCard(data) {
         console.log(e);
       }
     },
+
     //DISLIKE
     async () => {
       try {
-        const res = api.removeLike(data._id);
+        const res = await api.removeLike(data._id);
         card.removeLike();
         card.setLikeQty(res);
       } catch (e) {
